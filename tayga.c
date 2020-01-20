@@ -439,7 +439,10 @@ int main(int argc, char **argv)
 
 	if (pidfile) {
 		snprintf(addrbuf, sizeof(addrbuf), "%ld\n", (long)getpid());
-		write(pidfd, addrbuf, strlen(addrbuf));
+		if (write(pidfd, addrbuf, strlen(addrbuf)) != strlen(addrbuf)) {
+			slog(LOG_CRIT, "Error, unable to write PID file.\n");
+			exit(1);
+		}
 		close(pidfd);
 	}
 
