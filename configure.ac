@@ -5,7 +5,7 @@ AC_CONFIG_HEADERS(config.h)
 
 AC_PROG_CC
 
-tayga_conf_path=${sysconfdir}/tayga.conf
+tayga_conf_path='${sysconfdir}/tayga.conf'
 
 AC_SUBST(tayga_conf_path)
 
