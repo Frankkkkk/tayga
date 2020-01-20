@@ -388,7 +388,11 @@ int main(int argc, char **argv)
 					"is specified in %s\n", conffile);
 			exit(1);
 		}
-		chdir("/");
+		if (chdir("/")) {
+			slog(LOG_CRIT, "Error: unable to chdir to /, aborting: %s\n",
+					strerror(errno));
+			exit(1);
+		}
 	} else if (chdir(gcfg->data_dir) < 0) {
 		if (user || errno != ENOENT) {
 			slog(LOG_CRIT, "Error: unable to chdir to %s, "
@@ -460,7 +464,11 @@ int main(int argc, char **argv)
 					gcfg->data_dir, strerror(errno));
 			exit(1);
 		}
-		chdir("/");
+		if (chdir("/")) {
+			slog(LOG_CRIT, "Error: unable to chdir to /, aborting: %s\n",
+					strerror(errno));
+			exit(1);
+		}
 	}
 
 	if (gr) {
